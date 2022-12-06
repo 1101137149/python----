@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="aaa">
+        完成內容(目前沒有資料)
+    </div>
+    <div id="bbb" class="row row-cols-1 row-cols-md-3 g-4">
+
+    </div>
+
+    <script>
+        a = [];
+        a.push(3.14);
+        a.push(100);
+        a.push("Hello");
+        console.log(a);
+
+        console.log("for of 批次讀取容器資料");
+        for (const x of a) {
+            console.log(x);
+        }
+
+
+        //set
+        const fruits = new Set(["apple", "banana"]);
+        fruits.add("cherry");
+        fruits.add("apple");
+        console.log(fruits);
+        console.log("for of 批次讀取容器資料");
+        for (const x of fruits) {
+            console.log(x);
+        }
+
+
+        //object
+        const st = {   //對應python的dict
+            name: "Tom",
+            eng: 100,
+            math: 99,
+            算總分: function () {
+                return this.eng + this.math;
+            }
+
+        };
+        console.log(st);
+        console.log(st.name);
+        console.log(st.eng);
+        console.log(st.math);
+        console.log("總分=" + (st.eng + st.math));
+        console.log(st.算總分());
+
+        //樣板字串(Python)
+        const s = `
+        <p>姓名 ${st.name}</p>
+        <p>英文 ${st.eng}</p>
+        <p>數學 ${st.math}</p>
+        <p>總分 ${st.算總分()}</p>
+        `;
+
+        //尋找id為aaa網頁元素
+        const aaa = document.getElementById("aaa");
+        console.log(aaa);
+        aaa.innerHTML = s;
+
+        //[{},{}]巢狀資料結構
+        const data = [
+            { name: "Tom", eng: 100 },
+            { name: "Amy", eng: 85 }
+        ];
+
+        let ss = "";
+        for (const x of data) {
+            //+=累加
+            ss += `
+            <div>
+                <p>姓名${x.name}</p>
+                <p>英文${x.eng}</p>
+                <br>
+                </div>
+            `
+        }
+        console.log(ss);
+        aaa.innerHTML = ss;
+
+
+        let bb = "";
+        //jquery ajax 非同步下載資料(多工) django 連接
+        $.ajax(
+            {
+                url: "http://127.0.0.1:8000/api/product/",
+                method: "GET",
+                dataType: 'json',
+                success: function (data) {
+                    //下載成功時
+                    console.log("----success----");
+                    console.log(data);
+                    var num = 0;
+                    for (const x of Object.values(data)) {
+                        // ss += `
+                        // <div>
+                        //     <p>url ${x.url}</p>
+                        //     <p>name ${x.name}</p>
+                        //     <p>price ${x.price}</p>
+                        //     <br>
+                        //     </div>
+                        // `
+                        num++;
+                        bb += `
+            <div class="col">
+            <div class="card " style="width: 18rem;">
+                <div class="card-header text-success text-center">
+                <h3>${num}</h3>
+                </div>
+                <span class="border border-warning">
+                <img style="height:250px;" src="../${x.id}.JPG" class="card-img-top" alt="...">
+                </span>
+                <div class="card-body">
+                <h4 class="card-title">${x.name}</h4>
+                <p class="card-text">$  ${x.price}</p>
+                <div class="d-grid gap-2">
+                <a href="#" class="btn btn-primary">加入購物車</a>
+                </div>
+                </div>
+            </div>
+            </div>
+                        `
+                    }
+                    console.log(bb);
+                    const bbb = document.getElementById("bbb");
+                    bbb.innerHTML = bb;
+                },
+                error: function (xhr, status, error) {
+                    console.log("----error----");
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            }
+        );
+        let t = `
+
+        `;
+
+    </script>
+
+
+</body>
+
+
+</html>

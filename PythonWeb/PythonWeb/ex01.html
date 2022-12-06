@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        "use strict";//嚴格模式
+        function test() {
+            a = 7;
+            console.log("test() a=" + a + "。");
+        }
+
+
+        test();
+
+        a = 2;
+        console.log(a);
+        if (a == 2) {
+            console.log("a is undefined")
+
+        } else {
+            console.log("a is defined")
+
+        }
+        test();
+
+        var a;//a是全域變數 如果嚴格模式沒打會出錯
+        //let a; //a是區域變數，僅在script範圍有效，test()函式無法使用
+
+    </script>
+</body>
+
+</html>

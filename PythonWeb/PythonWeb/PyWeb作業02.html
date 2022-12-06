@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //抓input的姓名
+        function myFunction() {
+            var name = '';
+            var lottoAll = '';
+            const lotto = new Set();
+            name = document.getElementById("name").value
+            if (name == "") {
+                document.getElementById("demo").innerHTML = "";
+                document.getElementById("Error").innerHTML = "請輸入姓名!";
+            } else {
+                console.log(name);
+
+                //跑迴圈
+                while (lotto.size < 6) {
+                    // Returns a random integer from 1 to 42:
+                    var n = Math.floor(Math.random() * 42) + 1;
+                    lotto.add(n);
+                }
+
+                for (const x of lotto.values()) {
+                    lottoAll += x + " ";
+                }
+
+                document.getElementById("demo").innerHTML = lottoAll + "已記錄此組號碼由" + name + "購買";
+                document.getElementById("Error").innerHTML = "";
+            }
+        }
+
+
+
+
+    </script>
+
+
+    請輸入姓名:<input id="name" type="text">
+    <input id="namebtn" type="button" value="送出" onclick="myFunction()">
+    <div id="demo"></div>
+    <div id="Error" style="color: red;"></div>
+</body>
+
+</html>

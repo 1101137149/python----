@@ -1,0 +1,45 @@
+.cardstyle {
+    background-color: rgba(255, 255, 255, 0.4);
+    margin: 10px;
+
+    /* width: 300px;
+    float: left; */
+
+    /*設margin 寬要扣掉!*/
+    /* margin: 10px;
+    text-align: center; */
+
+    /*對所有效果做動畫*/
+    /* transition: all 0.5s; */
+}
+
+.cardstyle .box:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 5px #000;
+}
+
+.cardstyle .box img {
+    border: none;
+    box-shadow: none;
+    border-radius: 10px;
+
+}
+
+.cardstyle .box img:hover {
+    /* transform: translate(-2px, -2px); */
+    box-shadow: 2px 2px 5px #000;
+
+}
+
+.cardstyle .box h5 {
+    margin-right: 60px;
+}
+
+.cardstyle .box p {}
+
+.cardstyle .box .tt {
+    display: flex;
+    justify-content: center;
+
+
+}
