@@ -86,33 +86,23 @@
     <script>
         //[{},{}]巢狀資料結構
         const datalist = [
-            { name: "冰淇淋鬆餅", price: 100 },
-            { name: "可愛動物造型蛋糕", price: 500 },
-            { name: "草莓蛋糕", price: 150 },
-            { name: "動物饅頭", price: 80 },
-            { name: "好吃蛋糕組合", price: 250 },
-            { name: "草莓派對餅乾", price: 120 },
-            { name: "甜甜圈", price: 49 },
-            { name: "水果蛋糕", price: 550 },
-            { name: "蘋果派", price: 180 }
+            { p_name: "冰淇淋鬆餅", p_price: 100, p_imgsrc: "p01" },
+            { p_name: "可愛動物造型蛋糕", p_price: 500, p_imgsrc: "p02" },
+            { p_name: "草莓蛋糕", p_price: 150, p_imgsrc: "p03" },
+            { p_name: "動物饅頭", p_price: 80, p_imgsrc: "p04" },
+            { p_name: "好吃蛋糕組合", p_price: 250, p_imgsrc: "p05" },
+            { p_name: "草莓派對餅乾", p_price: 120, p_imgsrc: "p06" },
+            { p_name: "甜甜圈", p_price: 49, p_imgsrc: "p07" },
+            { p_name: "水果蛋糕", p_price: 550, p_imgsrc: "p08" },
+            { p_name: "蘋果派", p_price: 180, p_imgsrc: "p09" }
         ];
 
         let productList = "";
 
         var num = 0;
-        $.ajax(
-            {
-                url: "http://127.0.0.1:8000/api/Food/",
-                method: "GET",
-                dataType: 'json',
-                success: function (data) {
-                    //下載成功時
-                    console.log("----success----");
-                    console.log(data);
-                    var num = 0;
-                    for (const x of Object.values(data)) {
-                        num++;
-                        productList += `
+        for (const x of Object.values(datalist)) {
+            num++;
+            productList += `
             <div class="col ">
             <div class="card border-dark mb-3 cardstyle box" style="width: 18rem;">
 
@@ -134,19 +124,65 @@
             </div>
             </div>
                         `
-                    }
-                    console.log(productList);
-                    const prodata = document.getElementById("productdata");
-                    prodata.innerHTML = productList;
-                },
-                error: function (xhr, status, error) {
-                    console.log("----error----");
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(error);
-                }
-            }
-        );
+        }
+        console.log(productList);
+        const prodata = document.getElementById("productdata");
+        prodata.innerHTML = productList;
+
+
+
+        // $.ajax(
+        //     {
+        //         url: "http://127.0.0.1:8000/api/Food/",
+        //         method: "GET",
+        //         dataType: 'json',
+        //         success: function (data) {
+        //             //下載成功時
+        //             console.log("----success----");
+        //             console.log(data);
+        //             var num = 0;
+        //             for (const x of Object.values(data)) {
+        //                 num++;
+        //                 productList += `
+        //     <div class="col ">
+        //     <div class="card border-dark mb-3 cardstyle box" style="width: 18rem;">
+
+        //         <img style="height:250px;" src="./${x.p_imgsrc}.jpg" class="card-img-top" alt="...">
+        //         <div class="card-body ">
+        //         <h4 class="card-title">
+        //             <i class="bi-lightning" style="font-size: 2rem; color: cornflowerblue;"></i>
+        //             ${x.p_name}
+        //             <i class="bi-lightning" style="font-size: 2rem; color: cornflowerblue;"></i>
+        //         </h4>
+        //         <p class="card-text"><i class="bi bi-currency-dollar"></i>
+        //               ${x.p_price} 元</p>
+        //         <div class="d-grid gap-2">
+        //             <button class="btn btn-outline-dark addcart" data-name="${x.p_name}"  onclick="addcart()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        //                 <i class="bi bi-cart3"></i>　加入購物車
+        //             </button>
+        //         </div>
+        //         </div>
+        //     </div>
+        //     </div>
+        //                 `
+        //             }
+        //             console.log(productList);
+        //             const prodata = document.getElementById("productdata");
+        //             prodata.innerHTML = productList;
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.log("----error----");
+        //             console.log(xhr);
+        //             console.log(status);
+        //             console.log(error);
+        //         }
+        //     }
+        // );
+
+
+
+
+
 
         //加入購物車
         function addcart() {
