@@ -140,6 +140,8 @@
                     console.log("----success----");
                     console.log(data);
                     var num = 0;
+                    //每列3個 計算不滿3個要補幾個
+                    var addcol = 3 - data.length % 3;
                     for (const x of Object.values(data)) {
                         num++;
                         productList += `
@@ -164,7 +166,17 @@
             </div>
             </div>
                         `
+                    }
 
+                    //為了不跑版多做的判斷
+                    if (addcol % 3 != 0) {
+
+                        for (var x = 1; x <= addcol; x++) {
+                            productList += `
+                                    <div class="col">
+                                    </div>
+                                `
+                        }
                     }
                     console.log(productList);
                     const prodata = document.getElementById("productdata");
@@ -173,10 +185,12 @@
 
                 },
                 error: function (xhr, status, error) {
+                    alert("後端連線異常，請聯絡網站負責人!")
                     console.log("----error----");
                     console.log(xhr);
                     console.log(status);
                     console.log(error);
+
                 }
             }
         );
@@ -188,6 +202,8 @@
             // alert(objButton.dataset.name);
             const Alertdata = document.getElementById("AlertModal");
             Alertdata.innerHTML = name;
+
+
 
 
         }
