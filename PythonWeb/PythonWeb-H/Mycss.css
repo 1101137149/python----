@@ -2,24 +2,26 @@
     background-color: rgba(255, 255, 255, 0.4);
     margin: 10px;
 
-    /* width: 300px;
-    float: left; */
-
-    /*設margin 寬要扣掉!*/
-    /* margin: 10px;
-    text-align: center; */
-
-    /*對所有效果做動畫*/
-    /* transition: all 0.5s; */
-
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-
 }
 
 .cardstyle .box:hover {
-    transform: translate(-2px, -2px);
+
     box-shadow: 2px 2px 5px #000;
+    animation-name: Mybox;
+    animation-duration: 1.5s;
+
+}
+
+@keyframes Mybox {
+    0% {
+        transform: rotateY(0deg);
+
+    }
+
+    100% {
+        transform: rotateY(360deg);
+
+    }
 }
 
 .cardstyle .box img {
@@ -29,17 +31,11 @@
 
 }
 
-.cardstyle .box img:hover {
-    /* transform: translate(-2px, -2px); */
-    box-shadow: 2px 2px 5px #000;
-
-}
 
 .cardstyle .box h5 {
     margin-right: 60px;
 }
 
-.cardstyle .box p {}
 
 .cardstyle .box .tt {
     display: flex;

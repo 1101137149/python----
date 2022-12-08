@@ -59,21 +59,13 @@
     </div>
 
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary">
-        Launch demo modal
-    </button>
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">已加入到購物車</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><span id="AlertModal"></span>已加入到購物車</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -83,11 +75,15 @@
     </div>
 
 
+
+
+
+
     <script>
         //[{},{}]巢狀資料結構
         const datalist = [
             { p_name: "冰淇淋鬆餅", p_price: 100, p_imgsrc: "p01" },
-            { p_name: "可愛動物造型蛋糕", p_price: 500, p_imgsrc: "p02" },
+            { p_name: "可愛造型蛋糕", p_price: 500, p_imgsrc: "p02" },
             { p_name: "草莓蛋糕", p_price: 150, p_imgsrc: "p03" },
             { p_name: "動物饅頭", p_price: 80, p_imgsrc: "p04" },
             { p_name: "好吃蛋糕組合", p_price: 250, p_imgsrc: "p05" },
@@ -98,52 +94,11 @@
         ];
 
         let productList = "";
-
-        var num = 0;
-        for (const x of Object.values(datalist)) {
-            num++;
-            productList += `
-            <div class="col ">
-            <div class="card border-dark mb-3 cardstyle box" style="width: 18rem;">
-
-                <img style="height:250px;" src="./${x.p_imgsrc}.jpg" class="card-img-top" alt="...">
-                <div class="card-body ">
-                <h4 class="card-title">
-                    <i class="bi-lightning" style="font-size: 2rem; color: cornflowerblue;"></i>
-                    ${x.p_name}
-                    <i class="bi-lightning" style="font-size: 2rem; color: cornflowerblue;"></i>
-                </h4>
-                <p class="card-text"><i class="bi bi-currency-dollar"></i>
-                      ${x.p_price} 元</p>
-                <div class="d-grid gap-2">
-                    <button class="btn btn-outline-dark addcart" data-name="${x.p_name}"  onclick="addcart()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i class="bi bi-cart3"></i>　加入購物車
-                    </button>
-                </div>
-                </div>
-            </div>
-            </div>
-                        `
-        }
-        console.log(productList);
-        const prodata = document.getElementById("productdata");
-        prodata.innerHTML = productList;
-
-
-
-        // $.ajax(
-        //     {
-        //         url: "http://127.0.0.1:8000/api/Food/",
-        //         method: "GET",
-        //         dataType: 'json',
-        //         success: function (data) {
-        //             //下載成功時
-        //             console.log("----success----");
-        //             console.log(data);
-        //             var num = 0;
-        //             for (const x of Object.values(data)) {
-        //                 num++;
-        //                 productList += `
+        //假資料
+        // var num = 0;
+        // for (const x of Object.values(datalist)) {
+        //     num++;
+        //     productList += `
         //     <div class="col ">
         //     <div class="card border-dark mb-3 cardstyle box" style="width: 18rem;">
 
@@ -157,7 +112,7 @@
         //         <p class="card-text"><i class="bi bi-currency-dollar"></i>
         //               ${x.p_price} 元</p>
         //         <div class="d-grid gap-2">
-        //             <button class="btn btn-outline-dark addcart" data-name="${x.p_name}"  onclick="addcart()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        //             <button class="btn btn-outline-dark addcart" data-name="${x.p_name}" onclick="addcart(this)"   type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
         //                 <i class="bi bi-cart3"></i>　加入購物車
         //             </button>
         //         </div>
@@ -165,27 +120,76 @@
         //     </div>
         //     </div>
         //                 `
-        //             }
-        //             console.log(productList);
-        //             const prodata = document.getElementById("productdata");
-        //             prodata.innerHTML = productList;
-        //         },
-        //         error: function (xhr, status, error) {
-        //             console.log("----error----");
-        //             console.log(xhr);
-        //             console.log(status);
-        //             console.log(error);
-        //         }
-        //     }
-        // );
+        // }
+        // 
 
 
+        // console.log(productList);
+        // const prodata = document.getElementById("productdata");
+        // prodata.innerHTML = productList;
+
+        //用django接資料
+        var button = "";
+        $.ajax(
+            {
+                url: "http://127.0.0.1:8000/api/Food/",
+                method: "GET",
+                dataType: 'json',
+                success: function (data) {
+                    //下載成功時
+                    console.log("----success----");
+                    console.log(data);
+                    var num = 0;
+                    for (const x of Object.values(data)) {
+                        num++;
+                        productList += `
+            <div class="col">
+            <div class="card border-dark mb-3 cardstyle box" style="width: 18rem;">
+
+                <img style="height:250px;" src="./${x.p_imgsrc}.jpg" class="card-img-top" alt="...">
+                <div class="card-body ">
+                <h4 class="card-title">
+                    <i class="bi-lightning" style="font-size: 2rem; color: cornflowerblue;"></i>
+                    ${x.p_name}
+                    <i class="bi-lightning" style="font-size: 2rem; color: cornflowerblue;"></i>
+                </h4>
+                <p class="card-text"><i class="bi bi-currency-dollar"></i>
+                      ${x.p_price} 元</p>
+                <div class="d-grid gap-2">
+                    <button id='btn${x.p_id}' class="btn btn-outline-dark addcart" onclick="addcart(this)"   data-name="${x.p_name}" data-num="${x.p_id}" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="bi bi-cart3"></i>　加入購物車
+                    </button>
+                </div>
+                </div>
+            </div>
+            </div>
+                        `
+
+                    }
+                    console.log(productList);
+                    const prodata = document.getElementById("productdata");
+                    prodata.innerHTML = productList;
 
 
+                },
+                error: function (xhr, status, error) {
+                    console.log("----error----");
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            }
+        );
+
+        function addcart(objButton) {
+            //console.log(objButton);
+
+            var name = objButton.dataset.name; //取得按鈕上data-name的值
+            // alert(objButton.dataset.name);
+            const Alertdata = document.getElementById("AlertModal");
+            Alertdata.innerHTML = name;
 
 
-        //加入購物車
-        function addcart() {
         }
 
 
